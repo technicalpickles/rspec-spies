@@ -1,6 +1,6 @@
 = rspec-spies
 
-Behold, the Test Spies pattern!
+Behold, the Test Spies pattern! http://xunitpatterns.com/Test%20Spy.html
 
 Some other mocking frameworks support this. In particular, rr, notamock, and jferris's fork of mocha. It'd be great to see support for it in rspec's mocking library as well.
 
@@ -9,17 +9,17 @@ Why not just switch to another framework? Well, because migration is a huge hass
 In general, I think it should work by doing your usual stub!, followed running the code under test, and then verifying with a matcher. The matcher should probably be in line with the syntax of mocking with should_receive. Here's a short example:
 
 
-describe "index" do
-  before do
-    @post = stub_model(Post)
-    Post.stub!(:find).and_return(@post)
-    get :show, :id => @post.id
-  end
-
-  it "should find post by id" do
-    Post.should have_received(:find).with(@post.id)
-  end
-end
+    describe "index" do
+      before do
+        @post = stub_model(Post)
+        Post.stub!(:find).and_return(@post)
+        get :show, :id => @post.id
+      end
+    
+      it "should find post by id" do
+        Post.should have_received(:find).with(@post.id)
+      end
+    end
 
 To get started, you just need to:
 
