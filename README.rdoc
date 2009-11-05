@@ -1,6 +1,104 @@
 = rspec-spies
 
-Description goes here.
+Behold, the Test Spies pattern!
+
+Some other mocking frameworks support this. In particular, rr, notamock, and jferris's fork of mocha. It'd be great to see support for it in rspec's mocking library as well.
+
+Why not just switch to another framework? Well, because migration is a huge hassle when you have a sizeable number of specs, in part to subtle varations in the framework. Even something like notamock that was meant to work with rspec out of the box... has its differences. Therefore, using the existing rspec mocking framework, with a small enhancements, is pretty idyllic.
+
+In general, I think it should work by doing your usual stub!, followed running the code under test, and then verifying with a matcher. The matcher should probably be in line with the syntax of mocking with should_receive. Here's a short example:
+
+
+describe "index" do
+  before do
+    @post = stub_model(Post)
+    Post.stub!(:find).and_return(@post)
+    get :show, :id => @post.id
+  end
+
+  it "should find post by id" do
+    Post.should have_received(:find).with(@post.id)
+  end
+end
+
+To get started, you just need to:
+
+ * Run: gem install rspec-spies
+ * Update spec_helper to include this line: require 'rspec-spies'
+
+
+== Before and after test spies
+
+If you think this simple case is redudant, consider this extended example without using test spies (note: these are using shoulda's rspec matchers):
+
+    describe "show"  do
+      before do
+        @post = stub_model(Post)
+        # always stub find, so most of the specifications will work
+        # alternatively, this could be in each 'it' block that doesn't have a should_receive
+        Post.stub!(:find).and_return(@post)
+      end
+    
+      it "should respond with success" do
+        get :show, :id => @post.id
+        
+        controller.should respond_with(:success)
+      end
+    
+      it "should render show template" do
+        get :show, :id => @post.id
+        controller.should render_template(:show)
+      end
+    
+      it "should find the post by id" do
+        Post.should_receive(:find).with(@post.id).and_return(@post) 
+        # note we have to specify the return value again
+        # also, this expectation is set BEFORE we actually do anything
+        get :show, :id => @post.id
+      end
+    
+      it "should assign post" do
+        get :show, :id
+    
+        controller.should assign_to(:post).with(@post)
+      end
+    
+    end
+
+The problems here:
+
+ * Running get in each it block. This is because we want to be able to use a mock expectation (ie @Post.should_receive) in one of the specifications. The should_receive could be in the setup instead of @stub!@, but if find is not called, it'll make all the specs fail, instead of just the one expecting it to be called.
+ * We're stubbing it once in the setup, and then mocking the same method in a later. This means we have to specify the return value both in the setup, so other specs work, and then again in the 'it' block with the mocking so that one will work.
+
+Contrast this with using test spies for this same situation:
+
+    describe "show" do
+      before do
+        @post = stub_model(Post)
+        Post.stub!(:find).and_return(@post)
+    
+        get :show, :id => @post.id
+      end
+    
+      it { should respond_with(:success) }
+    
+      it { should render_template(:show) }
+    
+      it { should assign_to(:post).with(@post) }
+    
+      it "should find the post by id" do
+        Post.should have_received(:find).with(@post.id)
+      end
+    end
+
+Note here that we only do a get once, and that we only have to specify the return value of @find once in the setup block.
+
+When I came on board the project I'm currently on (written by people who I want to think were pretty good at rspec), it was entirely in the style of the first example whenever mocking was used. This is a pretty simple case, but you could imagine it getting out of control if you are mocking more than just a single method. As a result, it took me a lot longer than it should have to fully understand what was going on, and it took longer to add more specs than it should have.
+
+After writing up the test spies, I've been rewriting the specs when I return to them to write them in the style of the second example, and it definitely feels a lot better.
+
+Lastly, I'd just want to make it clear that I'm not suggesting we stop using the first style. I just want the option of using test spies. The way this patch is written, I don't see it interfering with the existing style.
+
 
 == Note on Patches/Pull Requests
  

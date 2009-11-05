@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-spies"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{rspec has gone without tests spies. no more!}
+    gem.description = %Q{test spies, for rspec}
     gem.email = "josh@technicalpickles.com"
     gem.homepage = "http://github.com/technicalpickles/rspec-spies"
     gem.authors = ["Joshua Nichols"]
