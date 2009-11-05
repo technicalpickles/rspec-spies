@@ -23,7 +23,7 @@ In general, I think it should work by doing your usual stub!, followed running t
 
 To get started, you just need to:
 
- * Run: gem install rspec-spies --source http://gems.gemcutter.org
+ * Run: gem install rspec-spies --source http://gemcutter.org
  * Update spec_helper to include this line: require 'rspec-spies'
 
 
