@@ -33,11 +33,11 @@ Spec::Matchers.module_eval do
       end
 
       failure_message_for_should do |actual|
-        "expected #{actual.inspect} to have received #{sym.inspect} with #{args.inspect}"
+        "expected #{actual.inspect} to have received #{sym.inspect} with #{@args.inspect}"
       end
 
       failure_message_for_should_not do |actual|
-        "expected #{actual.inspect} to not have received #{sym.inspect} with #{args.inspect}, but did"
+        "expected #{actual.inspect} to not have received #{sym.inspect} with #{@args.inspect}, but did"
       end
 
       description do
