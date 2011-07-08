@@ -1,22 +1,20 @@
 require 'rubygems'
+require 'bundler'
+Bundler.setup(:default, :development)
+
 require 'rake'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "rspec-spies"
-    gem.summary = %Q{rspec has gone without tests spies. no more!}
-    gem.description = %Q{test spies, for rspec}
-    gem.email = "josh@technicalpickles.com"
-    gem.homepage = "http://github.com/technicalpickles/rspec-spies"
-    gem.authors = ["Joshua Nichols"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  gem.name = "rspec-spies"
+  gem.summary = %Q{rspec has gone without tests spies. no more!}
+  gem.description = %Q{test spies, for rspec}
+  gem.email = "josh@technicalpickles.com"
+  gem.homepage = "http://github.com/technicalpickles/rspec-spies"
+  gem.authors = ["Joshua Nichols"]
+  # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
 end
+Jeweler::GemcutterTasks.new
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new do |t|
@@ -28,8 +26,6 @@ RSpec::Core::RakeTask.new(:rcov) do |t|
   t.rcov = true
   t.rcov_opts = ['--exclude', 'spec']
 end
-
-task :spec => :check_dependencies
 
 task :default => :spec
 
