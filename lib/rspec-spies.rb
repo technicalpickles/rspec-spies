@@ -15,6 +15,7 @@ RSpec::Mocks::MethodDouble.class_eval do
   end
 end
 
+require 'rspec/expectations'
 require 'rspec/matchers'
 RSpec::Matchers.module_eval do
   def have_received(sym, &block)
