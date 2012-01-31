@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{rspec-spies}
-  s.version = "2.0.0"
+  s.name = "rspec-spies"
+  s.version = "2.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols"]
-  s.date = %q{2011-07-07}
-  s.description = %q{test spies, for rspec}
-  s.email = %q{josh@technicalpickles.com}
+  s.date = "2012-01-31"
+  s.description = "test spies, for rspec"
+  s.email = "josh@technicalpickles.com"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -25,14 +25,15 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/rspec-spies.rb",
+    "rspec-spies.gemspec",
     "spec/rspec-spies_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/technicalpickles/rspec-spies}
+  s.homepage = "http://github.com/technicalpickles/rspec-spies"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{rspec has gone without tests spies. no more!}
+  s.rubygems_version = "1.8.10"
+  s.summary = "rspec has gone without tests spies. no more!"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
