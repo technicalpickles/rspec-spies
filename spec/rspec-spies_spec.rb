@@ -36,6 +36,16 @@ module Spec
         message.should == "expected \"HI!\" to have received :slice with [5, 3]"
       end
 
+      it "doesn't show nil for arguments in description" do
+        @object.stub!(:slice)
+
+        @object.slice(3)
+        matcher = have_received(:slice).with(3)
+        messages = matcher.instance_variable_get("@messages")
+        message = messages[:description].call(@object)
+        message.should_not include "nil"
+      end
+
       it "correctly lists expects arguments for should_not" do
         @object.stub!(:slice)
 

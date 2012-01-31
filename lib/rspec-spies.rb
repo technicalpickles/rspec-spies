@@ -33,7 +33,7 @@ RSpec::Matchers.define :have_received do |sym, args, block|
 
 
   description do
-    "to have received #{sym.inspect} with #{args.inspect}"
+    "to have received #{sym.inspect} with #{@args.inspect}"
   end
 
 
