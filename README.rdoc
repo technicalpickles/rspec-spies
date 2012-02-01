@@ -25,6 +25,7 @@ To get started, you just need to:
 
  * Run: gem install rspec-spies --source http://gemcutter.org
  * Update spec_helper to include this line: require 'rspec-spies'
+   * Alternatively, you can add `-r rspec-spies` to your project's .rspec file
 
 
 == Before and after test spies
