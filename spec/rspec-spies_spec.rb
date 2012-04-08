@@ -7,11 +7,26 @@ module Spec
         @object = String.new("HI!")
       end
 
-      it "does match if method is called with correct args" do
+      it "matches if method is called with correct args" do
         @object.stub!(:slice)
         @object.slice(5)
 
         have_received(:slice).with(5).matches?(@object).should be_true
+      end
+
+      it "matches if doesn't specify args, even if method is called with args" do
+        @object.stub!(:slice)
+        @object.slice(5)
+
+        have_received(:slice).matches?(@object).should be_true
+      end
+
+      it "matches if specifies nil arg, if method is called with a nil arg" do
+        @object.stub!(:slice)
+        @object.slice(nil)
+
+        have_received(:slice).with(nil).matches?(@object).should be_true
+        have_received(:slice).matches?(@object).should be_true
       end
 
       it "does not match if method is called with incorrect args" do

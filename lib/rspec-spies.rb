@@ -16,29 +16,34 @@ RSpec::Mocks::MethodDouble.class_eval do
 end
 
 require 'rspec/matchers'
-RSpec::Matchers.define :have_received do |sym, args, block|
+RSpec::Matchers.define :have_received do |method_name, args, block|
   match do |actual|
-    actual.received_message?(sym, *@args, &block)
+    messages_received = actual.send(:__mock_proxy).instance_variable_get("@messages_received")
+    messages_received.any? do |message|
+      received_method_name, received_args, received_block = *message
+      result = (received_method_name == method_name)
+      result &&= RSpec::Mocks::ArgumentExpectation.new(@args || any_args).args_match?(received_args)
+      result &&= (received_block == block)
+    end
   end
 
+  chain :with do |*args|
+    @args = args
+  end
 
   failure_message_for_should do |actual|
-    "expected #{actual.inspect} to have received #{sym.inspect} with #{@args.inspect}"
+    "expected #{actual.inspect} to have received #{method_name.inspect}#{args_message}"
   end
-
 
   failure_message_for_should_not do |actual|
-    "expected #{actual.inspect} to not have received #{sym.inspect} with #{@args.inspect}, but did"
+    "expected #{actual.inspect} to not have received #{method_name.inspect}#{args_message}, but did"
   end
-
 
   description do
-    "to have received #{sym.inspect} with #{@args.inspect}"
+    "to have received #{method_name.inspect}#{args_message}"
   end
 
-
-  def with(*args)
-    @args = args
-    self
+  def args_message
+    @args ? " with #{@args.inspect}" : ""
   end
 end
