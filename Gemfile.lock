@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    rspec-spies (2.1.0)
+    rspec-spies (2.1.1)
       rspec (~> 2.0)
+      rspec-spies
 
 GEM
   remote: http://rubygems.org/
