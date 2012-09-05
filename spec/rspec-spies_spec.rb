@@ -29,6 +29,14 @@ module Spec
         have_received(:slice).matches?(@object).should be_true
       end
 
+      it "matches if specifies hash_including, if method is called with has including arguments" do
+        @object.stub!(:slice)
+        @object.slice({ :foo => :bar, :baz => :quux })
+
+        have_received(:slice).with(hash_including({ :foo => :bar })).matches?(@object).should be_true
+        have_received(:slice).with(hash_including({ :foo => :baz })).matches?(@object).should be_false
+      end
+
       it "does not match if method is called with incorrect args" do
         @object.stub!(:slice)
         @object.slice(3)
