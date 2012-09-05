@@ -3,6 +3,7 @@ require 'bundler'
 Bundler.setup(:default, :development)
 
 require 'rake'
+require 'appraisal'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
