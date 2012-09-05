@@ -13,13 +13,6 @@ Jeweler::Tasks.new do |gem|
   gem.email = "josh@technicalpickles.com"
   gem.homepage = "http://github.com/technicalpickles/rspec-spies"
   gem.authors = ["Joshua Nichols"]
-
-  gem.add_runtime_dependency 'rspec', '~> 2.0'
-
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'jeweler'
-  gem.add_development_dependency 'rdoc'
-  gem.add_development_dependency 'appraisal'
   # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
 end
 Jeweler::GemcutterTasks.new

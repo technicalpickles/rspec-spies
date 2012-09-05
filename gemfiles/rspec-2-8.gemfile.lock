@@ -1,7 +1,7 @@
 PATH
   remote: /Users/jamesarosen/Projects/rspec-spies
   specs:
-    rspec-spies (2.1.1)
+    rspec-spies (2.1.2)
       rspec (~> 2.0)
       rspec-spies
 

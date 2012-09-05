@@ -1,10 +1,3 @@
-PATH
-  remote: .
-  specs:
-    rspec-spies (2.1.1)
-      rspec (~> 2.0)
-      rspec-spies
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -36,4 +29,4 @@ DEPENDENCIES
   jeweler
   rake
   rdoc
-  rspec-spies!
+  rspec (~> 2.0)
