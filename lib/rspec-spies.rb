@@ -15,6 +15,7 @@ RSpec::Mocks::MethodDouble.class_eval do
   end
 end
 
+require 'rspec/expectations'
 require 'rspec/matchers'
 RSpec::Matchers.define :have_received do |method_name, args, block|
   match do |actual|
