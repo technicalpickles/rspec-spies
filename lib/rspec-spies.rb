@@ -3,15 +3,16 @@ RSpec::Mocks::MethodDouble.class_eval do
   # override defining stubs to record the message was called.
   # there's only one line difference from upstream rspec, but can't change it without fully overriding
   def define_proxy_method
-    method_name = @method_name
-    visibility_for_method = "#{visibility} :#{method_name}"
-    object_singleton_class.class_eval(<<-EOF, __FILE__, __LINE__)
-       def #{method_name}(*args, &block)
-         __mock_proxy.record_message_received :#{method_name}, *args, &block
-         __mock_proxy.message_received :#{method_name}, *args, &block
-       end
-    #{visibility_for_method}
+    return if @method_is_proxied
+
+    object_singleton_class.class_eval <<-EOF, __FILE__, __LINE__ + 1
+      def #{@method_name}(*args, &block)
+        __mock_proxy.record_message_received :#{@method_name}, *args, &block
+        __mock_proxy.message_received :#{@method_name}, *args, &block
+      end
+      #{visibility_for_method}
     EOF
+    @method_is_proxied = true
   end
 end
 
