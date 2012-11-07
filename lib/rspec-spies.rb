@@ -14,6 +14,10 @@ RSpec::Mocks::MethodDouble.class_eval do
     EOF
     @method_is_proxied = true
   end
+
+  def visibility_for_method
+    "#{visibility} :#{method_name}"
+  end
 end
 
 require 'rspec/expectations'
