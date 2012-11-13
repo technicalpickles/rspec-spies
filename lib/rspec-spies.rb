@@ -22,9 +22,14 @@ end
 
 require 'rspec/expectations'
 require 'rspec/matchers'
-argument_expectation_class = RSpec::Mocks.const_defined?(:ArgumentExpectation) ?
-                               RSpec::Mocks::ArgumentExpectation :
-                               RSpec::Mocks::ArgumentListMatcher
+
+argument_expectation_class = begin
+  require 'rspec/mocks/argument_list_matcher'
+  RSpec::Mocks::ArgumentListMatcher
+rescue LoadError
+  require 'rspec/mocks/argument_expectation'
+  RSpec::Mocks::ArgumentExpectation
+end
 
 RSpec::Matchers.define :have_received do |method_name, args, block|
   match do |actual|
