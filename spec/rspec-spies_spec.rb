@@ -37,6 +37,16 @@ module Spec
         have_received(:slice).with(hash_including({ :foo => :baz })).matches?(@object).should be_false
       end
 
+      it "matches if specifies exactly(x).times" do
+        @object.stub!(:slice)
+        @object.slice(5)
+        @object.slice(5)
+
+        have_received(:slice).exactly(1).times.matches?(@object).should be_false
+        have_received(:slice).exactly(2).times.matches?(@object).should be_true
+        have_received(:slice).exactly(3).times.matches?(@object).should be_false
+      end
+
       it "does not match if method is called with incorrect args" do
         @object.stub!(:slice)
         @object.slice(3)
