@@ -38,7 +38,6 @@ RSpec::Matchers.define :have_received do |method_name, args, block|
       received_method_name, received_args, received_block = *message
       result = (received_method_name == method_name)
       result &&= argument_expectation_class.new(@args || any_args).args_match?(received_args)
-      result &&= (received_block == block)
     end
   end
 

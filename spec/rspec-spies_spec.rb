@@ -37,6 +37,14 @@ module Spec
         have_received(:slice).with(hash_including({ :foo => :baz })).matches?(@object).should be_false
       end
 
+      it "matches if third argument is a block" do
+        @object.stub!(:slice)
+        @object.slice(5) do; end
+
+        have_received(:slice).with(5).matches?(@object).should be_true
+        have_received(:slice).with(5,anything).matches?(@object).should be_false
+      end
+
       it "does not match if method is called with incorrect args" do
         @object.stub!(:slice)
         @object.slice(3)
