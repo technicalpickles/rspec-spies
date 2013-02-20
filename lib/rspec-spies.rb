@@ -33,7 +33,8 @@ end
 
 RSpec::Matchers.define :have_received do |method_name, args, block|
   match do |actual|
-    messages_received = actual.send(:__mock_proxy).instance_variable_get("@messages_received").keep_if do |message|
+    @messages_received = actual.send(:__mock_proxy).instance_variable_get("@messages_received").dup
+    @messages_received.keep_if do |message|
       received_method_name, received_args, received_block = *message
       result = (received_method_name == method_name)
       result &&= argument_expectation_class.new(@args || any_args).args_match?(received_args)
@@ -41,9 +42,9 @@ RSpec::Matchers.define :have_received do |method_name, args, block|
     end
 
     if @times
-      messages_received.length == @expected_count
+      @messages_received.length == @expected_count
     else
-      messages_received.length > 0
+      @messages_received.length > 0
     end
   end
 
@@ -76,6 +77,6 @@ RSpec::Matchers.define :have_received do |method_name, args, block|
   end
 
   def times_message
-    @times ? " exactly #{@expected_count} times" : ""
+    @times ? " exactly #{@expected_count} times but was called #{@messages_received.count} times" : ""
   end
 end

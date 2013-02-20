@@ -47,6 +47,17 @@ module Spec
         have_received(:slice).exactly(3).times.matches?(@object).should be_false
       end
 
+      it "matches if called multiple times with different arguments" do
+        @object.stub!(:slice)
+        @object.slice(1)
+        @object.slice(2)
+
+        have_received(:slice).with(1).matches?(@object).should be_true
+        have_received(:slice).with(2).matches?(@object).should be_true
+        have_received(:slice).with(3).matches?(@object).should be_false
+      end
+
+
       it "does not match if method is called with incorrect args" do
         @object.stub!(:slice)
         @object.slice(3)
