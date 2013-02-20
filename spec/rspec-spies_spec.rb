@@ -79,5 +79,21 @@ module Spec
       end
     end
 
+    describe 'clearing out received messages' do
+      class Foo; end
+
+      before do
+        Foo.stub(:party)
+      end
+
+      it 'base case' do
+        Foo.party
+        have_received(:party).matches?(Foo).should be_true
+      end
+
+      it 'does not match even if the class method has been called in another spec' do
+        have_received(:party).matches?(Foo).should be_false
+      end
+    end
   end
 end
