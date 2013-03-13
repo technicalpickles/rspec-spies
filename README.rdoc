@@ -1,5 +1,7 @@
 = rspec-spies
 
+{<img src="https://travis-ci.org/technicalpickles/rspec-spies.png" />}[https://travis-ci.org/technicalpickles/rspec-spies]
+
 Behold, the Test Spies pattern! http://xunitpatterns.com/Test%20Spy.html
 
 Some other mocking frameworks support this. In particular, rr, notamock, and jferris's fork of mocha. It'd be great to see support for it in rspec's mocking library as well.
