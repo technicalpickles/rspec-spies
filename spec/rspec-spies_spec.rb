@@ -57,6 +57,13 @@ module Spec
         have_received(:slice).with(3).matches?(@object).should be_false
       end
 
+      it "matches if specifies regex, if method is called with matches arguments" do
+        @object.stub!(:slice)
+        @object.slice('foobar')
+
+        have_received(:slice).with(/foo/).matches?(@object).should be_true
+        have_received(:slice).with(/foox/).matches?(@object).should be_false
+      end
 
       it "does not match if method is called with incorrect args" do
         @object.stub!(:slice)
