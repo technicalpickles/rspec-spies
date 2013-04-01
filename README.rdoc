@@ -1,3 +1,7 @@
+== RSpec 2.14 eliminates the need for rspec-spies
+
+This syntax is available in RSpec 2.14 and later. Transitioning from rspec-spies should be as simple as updating your bundle and removing rspec-spies.
+
 = rspec-spies
 
 {<img src="https://travis-ci.org/technicalpickles/rspec-spies.png" />}[https://travis-ci.org/technicalpickles/rspec-spies]
