@@ -28,7 +28,7 @@ end
 
 RSpec::Matchers.define :have_received do |method_name, args, block|
   match do |actual|
-    @messages_received = actual.send(:__mock_proxy).instance_variable_get("@messages_received").dup
+    @messages_received = actual.__send__(:__mock_proxy).instance_variable_get("@messages_received").dup
     @messages_received.keep_if do |message|
       received_method_name, received_args, received_block = *message
       result = (received_method_name == method_name)
